@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface TaskRepository extends ListCrudRepository<Task, Long> {
     List<Task> findTasksByStatus (TaskStatus status);
+    List<Task> findTasksByStatusIsNot (TaskStatus status);
 }

@@ -1,14 +1,15 @@
-package com.pesto.takehomefullstackassignment;
+package com.pesto.takehomefullstackassignment.model;
 
 import com.pesto.takehomefullstackassignment.entity.TaskStatus;
-import jakarta.annotation.Nonnull;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
+import lombok.Builder;
+import lombok.Getter;
 
 import java.io.Serializable;
 
-@Data
+@Builder
+@Getter
 public class TaskRequest implements Serializable {
     @NotBlank
     private String title;
