@@ -2,8 +2,6 @@ package com.pesto.takehomefullstackassignment.repository;
 
 import com.pesto.takehomefullstackassignment.entity.Task;
 import com.pesto.takehomefullstackassignment.entity.TaskStatus;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.stereotype.Repository;
 
