@@ -22,10 +22,10 @@
     <ul class="task-list">
         <li class="task-list-item" ng-repeat="task in ctrl.tasks">
             <label class="task-list-item-label">
-                <input type="checkbox">
+                <input type="checkbox" ng-model="task.status" ng-true-value="'DONE'" ng-false-value="'TODO'" ng-change="ctrl.updateTask(task.id, task.status)"/>
                 <span ng-bind="task.title"></span>
             </label>
-            <span  class="delete-btn" title="Delete Task">{{task.del}}</span>
+            <span type="button" ng-click="ctrl.deleteTask(task.id)" class="delete-btn" title="Delete Task">{{task.del}}</span>
         </li>
     </ul>
 </div>

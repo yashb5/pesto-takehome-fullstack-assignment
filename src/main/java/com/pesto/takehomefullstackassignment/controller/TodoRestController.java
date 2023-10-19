@@ -6,6 +6,7 @@ import com.pesto.takehomefullstackassignment.model.TaskRequest;
 import com.pesto.takehomefullstackassignment.model.TaskUpdateRequest;
 import com.pesto.takehomefullstackassignment.repository.TaskRepository;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -37,13 +38,13 @@ public class TodoRestController {
         return taskRepository.save(task);
     }
 
-    @PutMapping("todo")
-    public void updateTask(@Valid @RequestBody TaskUpdateRequest taskUpdateRequest) {
-        Task task = taskRepository.findById(taskUpdateRequest.getTaskId()).orElseThrow(
-                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Task not found with Id: " + taskUpdateRequest.getTaskId())
+    @PutMapping("todo/{taskId}")
+    public void updateTask(@PathVariable @NotNull Long taskId,  @Valid @RequestBody TaskUpdateRequest taskUpdateRequest) {
+        Task task = taskRepository.findById(taskId).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Task not found with Id: " + taskId)
         );
 
-        task.setStatus(TaskStatus.DELETED);
+        task.setStatus(taskUpdateRequest.getStatus());
         taskRepository.save(task);
     }
 }
