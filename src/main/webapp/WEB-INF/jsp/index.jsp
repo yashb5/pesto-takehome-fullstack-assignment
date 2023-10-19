@@ -16,8 +16,8 @@
 <div class="app-container" id="taskList" ng-controller="TaskController as ctrl">
     <h1 class="app-header">TO DO LIST</h1>
     <div class="add-task">
-        <input type="text" autocomplete="off" placeholder="Add New Task" v-model="tasks.name" @keyup.enter="newItem" class="task-input">
-        <input type="submit" value="" class="submit-task" @click="newItem" title="Add Task">
+        <input type="text" autocomplete="off" placeholder="Add New Task" ng-model="ctrl.task.title" @keyup.enter="newItem" class="task-input">
+        <input type="button" value="" class="submit-task" ng-click="ctrl.createTask()" title="Add Task">
     </div>
     <ul class="task-list">
         <li class="task-list-item" ng-repeat="task in ctrl.tasks">

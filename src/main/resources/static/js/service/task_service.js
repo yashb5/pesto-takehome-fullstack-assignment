@@ -6,7 +6,7 @@ angular.module('myApp').factory('TaskService', ['$http', '$q', function($http, $
 
     var factory = {
         fetchTasks: fetchTasks,
-        // createUser: createUser,
+        createTask: createTask,
         // updateUser:updateUser,
         // deleteUser:deleteUser
     };
@@ -22,6 +22,21 @@ angular.module('myApp').factory('TaskService', ['$http', '$q', function($http, $
                 },
                 function(errResponse){
                     console.error('Error while fetching Tasks');
+                    deferred.reject(errResponse);
+                }
+            );
+        return deferred.promise;
+    }
+
+    function createTask(task) {
+        var deferred = $q.defer();
+        $http.post(REST_SERVICE_URI, task)
+            .then(
+                function (response) {
+                    deferred.resolve(response.data);
+                },
+                function(errResponse){
+                    console.error('Error while creating User');
                     deferred.reject(errResponse);
                 }
             );
