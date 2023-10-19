@@ -103,6 +103,11 @@ ul {
 .task-inputplaceholder {
     color: #fff;
 }
+
+.task-list {
+    margin-top: 1rem;
+}
+
 .task-list-item {
     background-color: #191933;
     border-radius: 4px;
@@ -151,7 +156,7 @@ ul {
     cursor: pointer;
 }
 .delete-btn {
-    margin-left: auto;
+    margin-left: 1rem;
     display: block;
     width: 16px;
     height: 16px;
@@ -191,4 +196,8 @@ ul {
 /* When moving the mouse over the close button */
 .closebtn:hover {
     color: black;
+}
+
+.btn-group-sm {
+    margin-left: auto;
 }

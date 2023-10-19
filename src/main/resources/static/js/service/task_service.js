@@ -13,9 +13,16 @@ angular.module('myApp').factory('TaskService', ['$http', '$q', function($http, $
 
     return factory;
 
-    function fetchTasks() {
+    function fetchTasks(filter) {
         var deferred = $q.defer();
-        $http.get(REST_SERVICE_URI)
+        console.log(filter)
+        //let params = new HttpParams().set("status", filter)
+        var filterUrl = ""
+        if (filter !== 'ALL') {
+            filterUrl =  "?status=" + filter;
+        }
+
+        $http.get(REST_SERVICE_URI + filterUrl)
             .then(
                 function (response) {
                     deferred.resolve(response.data);

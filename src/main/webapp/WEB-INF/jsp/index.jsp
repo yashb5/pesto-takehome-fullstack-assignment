@@ -15,7 +15,7 @@
 </head>
 <body ng-app="myApp" class="ng-cloak">
     <div ng-controller="TaskController as ctrl" class="container">
-        <div class="alert" ng-show="ctrl.showAlert">
+        <div class="alert alert-danger" role="alert" ng-show="ctrl.showAlert">
             <span class="closebtn" ng-click="ctrl.closeAlert()">&times;</span>
             Title cannot be empty.
         </div>
@@ -50,13 +50,34 @@
             </div>
             <div class="app-container col" id="taskList" >
                 <h1 class="app-header">TODO LIST</h1>
+                <div class="btn-group flex-wrap" role="group">
+                    <input type="radio" class="btn-check" ng-checked="ctrl.filter" ng-model="ctrl.filter" ng-value="'ALL'" ng-change="ctrl.fetchTasks()" name="taskFilter" id="all" autocomplete="off">
+                    <label class="btn btn-outline-info" for="all">All</label>
 
+                    <input type="radio" class="btn-check" ng-checked="ctrl.filter" ng-model="ctrl.filter" ng-value="'TODO'" ng-change="ctrl.fetchTasks()" name="taskFilter" id="todo" autocomplete="off" >
+                    <label class="btn btn-outline-secondary" for="todo">ToDo</label>
+
+                    <input type="radio" class="btn-check" ng-checked="ctrl.filter" ng-model="ctrl.filter" ng-value="'IN_PROGRESS'" ng-change="ctrl.fetchTasks()" name="taskFilter" id="inprogress" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="inprogress">In-progress</label>
+
+                    <input type="radio" class="btn-check" ng-checked="ctrl.filter" ng-model="ctrl.filter" ng-value="'DONE'" ng-change="ctrl.fetchTasks()" name="taskFilter" id="done" autocomplete="off">
+                    <label class="btn btn-outline-success" for="done">Done</label>
+                </div>
                 <ul class="task-list">
                     <li class="task-list-item" ng-repeat="task in ctrl.tasks">
                         <label class="task-list-item-label">
-                            <input type="checkbox" ng-model="task.status" ng-true-value="'DONE'" ng-false-value="'TODO'" ng-change="ctrl.updateTask(task.id, task.status)"/>
                             <span ng-bind="task.title"></span>
                         </label>
+                        <div class="btn-group flex-wrap btn-group-sm" role="group">
+                            <input type="radio" class="btn-check" ng-checked="task.status" ng-model="task.status" ng-value="'TODO'" ng-change="ctrl.updateTask(task.id, 'TODO')" name="taskStatus{{task.id}}" id="todo{{task.id}}" autocomplete="off" >
+                            <label class="btn btn-outline-secondary btn-sm" for="todo{{task.id}}">ToDo</label>
+
+                            <input type="radio" class="btn-check" ng-checked="task.status" ng-model="task.status" ng-value="'IN_PROGRESS'" ng-change="ctrl.updateTask(task.id, 'IN_PROGRESS')" name="taskStatus{{task.id}}" id="inprogress{{task.id}}" autocomplete="off">
+                            <label class="btn btn-outline-primary btn-sm" for="inprogress{{task.id}}">In-progress</label>
+
+                            <input type="radio" class="btn-check" ng-checked="task.status" ng-model="task.status" ng-value="'DONE'" ng-change="ctrl.updateTask(task.id, 'DONE')" name="taskStatus{{task.id}}" id="done{{task.id}}" autocomplete="off">
+                            <label class="btn btn-outline-success btn-sm" for="done{{task.id}}">Done</label>
+                        </div>
                         <span type="button" ng-click="ctrl.deleteTask(task.id)" class="delete-btn" title="Delete Task">{{task.del}}</span>
                     </li>
                 </ul>

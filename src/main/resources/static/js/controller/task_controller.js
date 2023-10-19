@@ -5,17 +5,18 @@ angular.module('myApp').controller('TaskController', ['$scope', 'TaskService', f
     self.task = {title: null, description: null, status: 'TODO'};
     self.tasks = [];
     self.showAlert = false;
+    self.filter = 'ALL'
 
     self.createTask = createTask;
     self.updateTask = updateTask;
     self.deleteTask = deleteTask;
     self.closeAlert = closeAlert;
-
+    self.fetchTasks = fetchTasks;
 
     fetchTasks();
 
     function fetchTasks() {
-        TaskService.fetchTasks()
+        TaskService.fetchTasks(self.filter)
             .then(
                 function (d) {
                     self.tasks = d;
