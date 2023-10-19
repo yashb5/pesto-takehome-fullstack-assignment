@@ -20,6 +20,8 @@ angular.module('myApp').controller('TaskController', ['$scope', 'TaskService', f
                 function (d) {
                     self.tasks = d;
                     self.task.title = null
+                    self.task.description = null
+                    self.task.status = 'TODO'
                 },
                 function (errResponse) {
                     console.error('Error while fetching Tasks');
