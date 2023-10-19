@@ -6,29 +6,35 @@
     <title>TODO App</title>
     <base href="/" />
     <link rel="stylesheet" href="css/style.css" />
-
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
     <script src="js/app.js"></script>
     <script src="js/service/task_service.js"></script>
     <script src="js/controller/task_controller.js"></script>
 </head>
 <body ng-app="myApp" class="ng-cloak">
-<div class="app-container" id="taskList" ng-controller="TaskController as ctrl">
-    <h1 class="app-header">TO DO LIST</h1>
-    <div class="add-task">
-        <input type="text" autocomplete="off" placeholder="Add New Task" ng-model="ctrl.task.title" @keyup.enter="newItem" class="task-input">
-        <input type="button" value="" class="submit-task" ng-click="ctrl.createTask()" title="Add Task">
+    <div ng-controller="TaskController as ctrl">
+        <div class="alert" ng-show="ctrl.showAlert">
+            <span class="closebtn" ng-click="ctrl.closeAlert()">&times;</span>
+            Title cannot be empty.
+        </div>
+        <div class="app-container" id="taskList" >
+            <h1 class="app-header">TO DO LIST</h1>
+            <div class="add-task">
+                <input type="text" autocomplete="off" placeholder="Add New Task" ng-model="ctrl.task.title" (keyup.enter)="ctrl.createTask()" class="task-input">
+                <input type="text" autocomplete="off" placeholder="Add Description (optional)" ng-model="ctrl.task.description" (keyup.enter)="ctrl.createTask()" class="task-input">
+                <input type="button" value="" class="submit-task" ng-click="ctrl.createTask()" title="Add Task">
+            </div>
+            <ul class="task-list">
+                <li class="task-list-item" ng-repeat="task in ctrl.tasks">
+                    <label class="task-list-item-label">
+                        <input type="checkbox" ng-model="task.status" ng-true-value="'DONE'" ng-false-value="'TODO'" ng-change="ctrl.updateTask(task.id, task.status)"/>
+                        <span ng-bind="task.title"></span>
+                    </label>
+                    <span type="button" ng-click="ctrl.deleteTask(task.id)" class="delete-btn" title="Delete Task">{{task.del}}</span>
+                </li>
+            </ul>
+        </div>
     </div>
-    <ul class="task-list">
-        <li class="task-list-item" ng-repeat="task in ctrl.tasks">
-            <label class="task-list-item-label">
-                <input type="checkbox" ng-model="task.status" ng-true-value="'DONE'" ng-false-value="'TODO'" ng-change="ctrl.updateTask(task.id, task.status)"/>
-                <span ng-bind="task.title"></span>
-            </label>
-            <span type="button" ng-click="ctrl.deleteTask(task.id)" class="delete-btn" title="Delete Task">{{task.del}}</span>
-        </li>
-    </ul>
-</div>
 </body>
 
 </html>

@@ -4,13 +4,12 @@ angular.module('myApp').controller('TaskController', ['$scope', 'TaskService', f
     var self = this;
     self.task = {title: null, description: null, status: 'TODO'};
     self.tasks = [];
+    self.showAlert = false;
 
     self.createTask = createTask;
     self.updateTask = updateTask;
     self.deleteTask = deleteTask;
-    // self.edit = edit;
-    // self.remove = remove;
-    // self.reset = reset;
+    self.closeAlert = closeAlert;
 
 
     fetchTasks();
@@ -29,8 +28,10 @@ angular.module('myApp').controller('TaskController', ['$scope', 'TaskService', f
     }
 
     function createTask(){
-        if (self.task.title === null)
+        if (self.task.title === "" || self.task.title === null) {
+            self.showAlert = true;
             return;
+        }
         TaskService.createTask(self.task)
             .then(
                 fetchTasks,
@@ -65,5 +66,9 @@ angular.module('myApp').controller('TaskController', ['$scope', 'TaskService', f
                     console.error('Error while updating Task');
                 }
             );
+    }
+
+    function closeAlert() {
+        self.showAlert = false;
     }
 }]);
