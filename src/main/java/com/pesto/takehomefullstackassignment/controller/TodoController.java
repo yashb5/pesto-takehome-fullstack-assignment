@@ -8,42 +8,20 @@ import com.pesto.takehomefullstackassignment.repository.TaskRepository;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/v1/")
+@Controller
 @AllArgsConstructor
 public class TodoController {
 
-    private TaskRepository taskRepository;
-
-    @GetMapping("todo")
-    public List<Task> getToDoListStatusFilter(@RequestParam(required = false) TaskStatus status) {
-        return status == null?
-                taskRepository.findTasksByStatusIsNot(TaskStatus.DELETED) :
-                taskRepository.findTasksByStatus(status);
-    }
-
-    @PostMapping("todo")
-    public Task addTask(@Valid @RequestBody TaskRequest taskRequest) {
-        Task task = new Task();
-        task.setTitle(taskRequest.getTitle());
-        task.setDescription(taskRequest.getDescription());
-        task.setStatus(taskRequest.getStatus());
-        return taskRepository.save(task);
-    }
-
-    @PutMapping("todo")
-    public void updateTask(@Valid @RequestBody TaskUpdateRequest taskUpdateRequest) {
-        Task task = taskRepository.findById(taskUpdateRequest.getTaskId()).orElseThrow(
-                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Task not found with Id: " + taskUpdateRequest.getTaskId())
-        );
-
-        task.setStatus(TaskStatus.DELETED);
-        taskRepository.save(task);
+    @GetMapping("/")
+    public String index () {
+        return "index";
     }
 
 }
