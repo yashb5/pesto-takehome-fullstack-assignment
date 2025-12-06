@@ -1,27 +1,20 @@
 package com.pesto.takehomefullstackassignment.controller;
 
-import com.pesto.takehomefullstackassignment.model.TaskRequest;
-import com.pesto.takehomefullstackassignment.entity.Task;
-import com.pesto.takehomefullstackassignment.entity.TaskStatus;
-import com.pesto.takehomefullstackassignment.model.TaskUpdateRequest;
-import com.pesto.takehomefullstackassignment.repository.TaskRepository;
-import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-@AllArgsConstructor
 public class TodoController {
 
     @GetMapping("/")
-    public String index () {
+    public String index(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            model.addAttribute("username", authentication.getName());
+        }
         return "index";
     }
-
 }

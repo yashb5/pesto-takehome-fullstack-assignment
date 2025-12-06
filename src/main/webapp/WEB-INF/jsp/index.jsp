@@ -1,12 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title>TODO App</title>
     <base href="/" />
     <link rel="stylesheet" href="css/style.css" />
-<%--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">--%>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
     <script src="js/app.js"></script>
@@ -14,7 +13,22 @@
     <script src="js/controller/task_controller.js"></script>
 </head>
 <body ng-app="myApp" class="ng-cloak">
-    <div ng-controller="TaskController as ctrl" class="container">
+    <nav class="navbar navbar-dark" style="background: rgba(16, 16, 29, 0.95); position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 12px 24px;">
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1" style="font-family: 'Space Mono', monospace; letter-spacing: -1px;">[ TODO ]</span>
+            <div class="d-flex align-items-center">
+                <span style="color: rgba(255,255,255,0.7); margin-right: 16px; font-size: 14px;">
+                    Welcome, <strong style="color: #00c896;">${username}</strong>
+                </span>
+                <form action="/api/v1/auth/logout" method="post" style="margin: 0;">
+                    <button type="submit" class="btn btn-outline-light btn-sm" style="border-radius: 8px; padding: 6px 16px;">
+                        Logout
+                    </button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <div ng-controller="TaskController as ctrl" class="container" style="margin-top: 80px;">
         <div class="alert alert-danger" role="alert" ng-show="ctrl.showAlert">
             <span class="closebtn" ng-click="ctrl.closeAlert()">&times;</span>
             Title cannot be empty.

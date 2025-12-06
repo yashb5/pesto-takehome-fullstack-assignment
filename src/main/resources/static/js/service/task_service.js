@@ -2,7 +2,7 @@
 
 angular.module('myApp').factory('TaskService', ['$http', '$q', function($http, $q){
 
-    var REST_SERVICE_URI = 'http://localhost:8080/api/v1/todo';
+    var REST_SERVICE_URI = '/api/v1/todo';
 
     var factory = {
         fetchTasks: fetchTasks,
