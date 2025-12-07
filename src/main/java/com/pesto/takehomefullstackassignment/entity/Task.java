@@ -1,10 +1,8 @@
 package com.pesto.takehomefullstackassignment.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.annotation.Nonnull;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
@@ -19,7 +17,7 @@ import java.time.Instant;
 @EntityListeners(AuditingEntityListener.class)
 public class Task {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Nonnull
@@ -28,7 +26,13 @@ public class Task {
     private String description;
 
     @Nonnull
+    @Enumerated(EnumType.STRING)
     private TaskStatus status;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnore
+    private User user;
 
     @CreatedDate
     private Instant createdDate;
